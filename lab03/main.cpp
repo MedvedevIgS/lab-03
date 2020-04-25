@@ -37,9 +37,9 @@ void show_histogram_svg(const vector<size_t>& bins)
     const auto TEXT_WIDTH = 50;
     const auto BIN_HEIGHT = 30;
     const auto BLOCK_WIDTH = 10;
-    svg_begin(400, 300);
-    svg_text(20, 20, to_string(bins[0]));
-    svg_rect(50, 0, bins[0] * 10, 30);
+    svg_begin(IMAGE_WIDTH, IMAGE_HEIGHT);
+    svg_text(TEXT_LEFT, TEXT_LEFT, to_string(bins[0]));
+    svg_rect(TEXT_WIDTH, 0, bins[0] * BLOCK_WIDTH, BIN_HEIGHT);
     svg_end();
 }
 
