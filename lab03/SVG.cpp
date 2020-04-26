@@ -29,7 +29,7 @@ void svg_end()
     cout << "</svg>\n";
 }
 
-void show_histogram_svg(const vector<size_t>& bins)
+void show_histogram_svg(const vector<size_t>& bins, size_t bin_count)
 {
     const auto IMAGE_WIDTH = 400;
     const auto IMAGE_HEIGHT = 300;

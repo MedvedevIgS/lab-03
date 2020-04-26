@@ -89,6 +89,6 @@ int main()
     if (bin_count==0)
         return 1;
     const auto bins = make_histogram(numbers, bin_count);
-    show_histogram_svg(bins);
+    show_histogram_svg(bins, bin_count);
     return 0;
 }
