@@ -38,11 +38,20 @@ void show_histogram_svg(const vector<size_t>& bins)
     const auto TEXT_WIDTH = 50;
     const auto BIN_HEIGHT = 30;
     const auto BLOCK_WIDTH = 10;
+    size_t maxbin=bins[0];
+    for(size_t j:bins)
+        if(maxbin<j)
+            maxbin=j;
     svg_begin(IMAGE_WIDTH, IMAGE_HEIGHT);
     double top = 0;
+    double koeff;
+    if(((IMAGE_WIDTH-TEXT_WIDTH)/BLOCK_WIDTH)<maxbin)
+        koeff=(IMAGE_WIDTH-TEXT_WIDTH)/maxbin;
+    else
+        koeff=BLOCK_WIDTH;
     for (size_t bin : bins)
     {
-    const double bin_width = BLOCK_WIDTH * bin;
+    const double bin_width = koeff * bin;
     svg_text(TEXT_LEFT, top + TEXT_BASELINE, to_string(bin));
     svg_rect(TEXT_WIDTH, top, bin_width, BIN_HEIGHT, "red", "red");
     top += BIN_HEIGHT;
