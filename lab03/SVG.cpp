@@ -50,8 +50,8 @@ void show_histogram_svg(const vector<size_t>& bins, size_t bin_count)
     y1=1;
     double top = 0;
     double koeff;
-    if(((IMAGE_WIDTH-TEXT_WIDTH)/BLOCK_WIDTH)<maxbin)
-        koeff=(IMAGE_WIDTH-TEXT_WIDTH)/maxbin;
+    if(((IMAGE_WIDTH-x1-WIDTH_LINE-TEXT_WIDTH-INDENT-WIDTH_LINE-WIDTH_LINE)/BLOCK_WIDTH)<maxbin)
+        koeff=(IMAGE_WIDTH-x1-WIDTH_LINE-TEXT_WIDTH-INDENT-WIDTH_LINE-WIDTH_LINE)/maxbin;
     else
         koeff=BLOCK_WIDTH;
     x2=x1+WIDTH_LINE+TEXT_WIDTH+koeff*maxbin+INDENT+WIDTH_LINE;
