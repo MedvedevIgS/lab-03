@@ -61,6 +61,10 @@ void show_histogram_svg(const vector<size_t>& bins, size_t bin_count)
     x2=x1+WIDTH_LINE+TEXT_WIDTH+koeff*maxbin+INDENT+WIDTH_LINE;
     y2=y1+WIDTH_LINE+INDENT+BIN_HEIGHT*bin_count+INDENT+WIDTH_LINE;
     double top = y1+WIDTH_LINE+INDENT;
+    svg_line(x1,y1,x2,y1, WIDTH_LINE);
+    svg_line(x1,y2,x2,y2, WIDTH_LINE);
+    svg_line(x1,y1,x1,y2, WIDTH_LINE);
+    svg_line(x2,y1,x2,y2, WIDTH_LINE);
     for (size_t bin : bins)
     {
     const double bin_width = koeff * bin;
