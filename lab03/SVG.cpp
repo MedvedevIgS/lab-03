@@ -45,12 +45,17 @@ void show_histogram_svg(const vector<size_t>& bins, size_t bin_count)
         if(maxbin<j)
             maxbin=j;
     svg_begin(IMAGE_WIDTH, IMAGE_HEIGHT);
+    double x1, x2, y1, y2;
+    x1=1;
+    y1=1;
     double top = 0;
     double koeff;
     if(((IMAGE_WIDTH-TEXT_WIDTH)/BLOCK_WIDTH)<maxbin)
         koeff=(IMAGE_WIDTH-TEXT_WIDTH)/maxbin;
     else
         koeff=BLOCK_WIDTH;
+    x2=x1+WIDTH_LINE+TEXT_WIDTH+koeff*maxbin+INDENT+WIDTH_LINE;
+    y2=y1+WIDTH_LINE+INDENT+BIN_HEIGHT*bin_count+INDENT+WIDTH_LINE;
     for (size_t bin : bins)
     {
     const double bin_width = koeff * bin;
