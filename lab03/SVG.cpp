@@ -4,6 +4,11 @@
 
 using namespace std;
 
+void svg_line(double x_1, double y_1, double x_2, double y_2, size_t width)
+{
+ cout << "<line x1='"<<x_1<<"' y1='"<<y_1<<"' x2='"<<x_2<<"' y2='"<<y_2<<"' style='stroke-dasharray: 10 10' stroke='blue' stroke-width='"<<width<<"'/>\n";
+}
+
 void svg_rect(double x, double y, double width, double height, string stroke, string fill)
 {
  cout << "<rect x='"<< x << "' y='" <<y<<"' width='" <<width <<"' height='" <<height <<"' stroke='"<< stroke <<"' fill='"<<fill<<"'/>\n";
