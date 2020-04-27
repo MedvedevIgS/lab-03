@@ -38,6 +38,8 @@ void show_histogram_svg(const vector<size_t>& bins, size_t bin_count)
     const auto TEXT_WIDTH = 50;
     const auto BIN_HEIGHT = 30;
     const auto BLOCK_WIDTH = 10;
+    const auto INDENT = 5;
+    const auto WIDTH_LINE = 3;
     size_t maxbin=bins[0];
     for(size_t j:bins)
         if(maxbin<j)
