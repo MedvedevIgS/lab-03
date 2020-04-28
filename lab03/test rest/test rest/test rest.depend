@@ -1,0 +1,5 @@
+# depslib dependency file v1.0
+1588003191 source:c:\laba-03\lab03\test rest\test rest\main.cpp
+	<iostream>
+	<vector>
+

@@ -2,12 +2,12 @@
 <CodeBlocks_project_file>
 	<FileVersion major="1" minor="6" />
 	<Project>
-		<Option title="lab03-test" />
+		<Option title="test rest" />
 		<Option pch_mode="2" />
 		<Option compiler="mingw-w64_gcc" />
 		<Build>
 			<Target title="Debug">
-				<Option output="bin/Debug/lab03-test" prefix_auto="1" extension_auto="1" />
+				<Option output="bin/Debug/test rest" prefix_auto="1" extension_auto="1" />
 				<Option object_output="obj/Debug/" />
 				<Option type="1" />
 				<Option compiler="mingw-w64_gcc" />
@@ -16,7 +16,7 @@
 				</Compiler>
 			</Target>
 			<Target title="Release">
-				<Option output="bin/Release/lab03-test" prefix_auto="1" extension_auto="1" />
+				<Option output="bin/Release/test rest" prefix_auto="1" extension_auto="1" />
 				<Option object_output="obj/Release/" />
 				<Option type="1" />
 				<Option compiler="mingw-w64_gcc" />
@@ -30,11 +30,9 @@
 		</Build>
 		<Compiler>
 			<Add option="-Wall" />
+			<Add option="-fexceptions" />
 		</Compiler>
-		<Unit filename="../SVG.h" />
-		<Unit filename="../histogram.cpp" />
-		<Unit filename="../histogram.h" />
-		<Unit filename="../test.cpp" />
+		<Unit filename="main.cpp" />
 		<Extensions>
 			<code_completion />
 			<envvars />

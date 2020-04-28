@@ -5,6 +5,8 @@
 
 using namespace std;
 
+void svg_line(double x_1, double y_1, double x_2, double y_2, size_t width);
+
 void svg_rect(double x, double y, double width, double height, string stroke = "black", string fill = "black");
 
 void svg_text(double left, double baseline, string text);

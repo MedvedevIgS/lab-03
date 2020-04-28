@@ -1,4 +1,3 @@
-#include "SVG.h"
 #include <iostream>
 #include <vector>
 
@@ -34,9 +33,20 @@ void svg_end()
     cout << "</svg>\n";
 }
 
-void show_histogram_svg(const vector<size_t>& bins, size_t bin_count)
+int main ()
 {
-     const auto IMAGE_WIDTH = 400;
+    size_t i;
+    cout <<"i=";
+    cin>>i;
+    vector<size_t> bins(i);
+    cout<<"vvedite ih: ";
+    for(size_t j=0;j<i;j++)
+        cin>>bins[j];
+    size_t maxbin=bins[0];
+    for(size_t j=0;j<i;j++)
+        if(maxbin<bins[j])
+            maxbin=bins[j];
+    const auto IMAGE_WIDTH = 400;
     const auto IMAGE_HEIGHT = 300;
     const auto TEXT_LEFT = 5;
     const auto TEXT_BASELINE = 20;
@@ -45,21 +55,17 @@ void show_histogram_svg(const vector<size_t>& bins, size_t bin_count)
     const auto BLOCK_WIDTH = 20;
     const auto INDENT = 5;
     const auto WIDTH_LINE = 3;
-    size_t maxbin=bins[0];
-    for(size_t j:bins)
-        if(maxbin<j)
-            maxbin=j;
     svg_begin(IMAGE_WIDTH, IMAGE_HEIGHT);
     double x1, x2, y1, y2;
-    x1=5;
-    y1=5;
+    x1=1;
+    y1=1;
     double koeff;
     if(((IMAGE_WIDTH-x1-WIDTH_LINE-TEXT_WIDTH-INDENT-WIDTH_LINE-WIDTH_LINE)/BLOCK_WIDTH)<maxbin)
         koeff=(IMAGE_WIDTH-x1-WIDTH_LINE-TEXT_WIDTH-INDENT-WIDTH_LINE-WIDTH_LINE)/maxbin;
     else
         koeff=BLOCK_WIDTH;
     x2=x1+WIDTH_LINE+TEXT_WIDTH+koeff*maxbin+INDENT+WIDTH_LINE;
-    y2=y1+WIDTH_LINE+INDENT+BIN_HEIGHT*bin_count+INDENT+WIDTH_LINE;
+    y2=y1+WIDTH_LINE+INDENT+BIN_HEIGHT*i+INDENT+WIDTH_LINE;
     double top = y1+WIDTH_LINE+INDENT;
     svg_line(x1,y1,x2,y1, WIDTH_LINE);
     svg_line(x1,y2,x2,y2, WIDTH_LINE);
@@ -67,10 +73,11 @@ void show_histogram_svg(const vector<size_t>& bins, size_t bin_count)
     svg_line(x2,y1,x2,y2, WIDTH_LINE);
     for (size_t bin : bins)
     {
-    const double bin_width = koeff * bin;
+    const double bin_width = bin * koeff;
     svg_text(x1+WIDTH_LINE+TEXT_LEFT, top + TEXT_BASELINE, to_string(bin));
     svg_rect(x1+WIDTH_LINE+TEXT_WIDTH, top, bin_width, BIN_HEIGHT, "red", "red");
     top += BIN_HEIGHT;
     }
     svg_end();
+    return 0;
 }
