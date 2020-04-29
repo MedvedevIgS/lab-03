@@ -4,8 +4,21 @@
 
 using namespace std;
 
-void
-test_positive() {
+void test_make_histogram_empty ()
+{
+    size_t bin_count = 10;
+    auto bin = make_histogram ({}, bin_count);
+    assert(bin[0] > 0);
+}
+
+void test_make_histogram_ones ()
+{
+    size_t bin_count = 3;
+    auto bin = make_histogram ({1}, bin_count);
+    assert(bin[0] > 0);
+}
+
+void test_positive() {
     double min = 0;
     double max = 0;
     find_minmax({1, 2, 3}, min, max);
@@ -48,8 +61,8 @@ void test_empty ()
     assert(max == 0);
 }
 
-int
-main() {
+int main()
+{
     test_positive();
     test_ones();
     test_same();
