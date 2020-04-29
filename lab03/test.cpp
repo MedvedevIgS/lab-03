@@ -53,4 +53,5 @@ main() {
     test_positive();
     test_ones();
     test_same();
+    test_empty();
 }
