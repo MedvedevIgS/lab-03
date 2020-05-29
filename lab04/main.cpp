@@ -133,6 +133,8 @@ download(const string& address) {
             if (res != CURLE_OK)
             {
                 cout << curl_easy_strerror(res) << endl;
+                curl_version_info_data *prot=curl_version_info(CURLVERSION_NOW);
+                cout <<prot->protocols<<"\n";
                 exit(1);
             }
              curl_easy_cleanup(curl);
