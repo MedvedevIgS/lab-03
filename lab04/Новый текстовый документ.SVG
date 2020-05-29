@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<svg width='400' height='300' viewBox='0 0 400 300' xmlns='http://www.w3.org/2000/svg'>
+<line x1='1' y1='1' x2='400' y2='1' style='stroke-dasharray: 10 10' stroke='blue' stroke-width='4'/>
+<line x1='1' y1='109' x2='400' y2='109' style='stroke-dasharray: 10 10' stroke='blue' stroke-width='4'/>
+<line x1='1' y1='1' x2='1' y2='109' style='stroke-dasharray: 10 10' stroke='blue' stroke-width='4'/>
+<line x1='400' y1='1' x2='400' y2='109' style='stroke-dasharray: 10 10' stroke='blue' stroke-width='4'/>
+<text x='12' y='30'>10</text>
+<rect x='47' y='10' width='114.667' height='30' stroke='red' fill='red'/>
+<text x='12' y='60'>20</text>
+<rect x='47' y='40' width='229.333' height='30' stroke='red' fill='red'/>
+<text x='12' y='90'>30</text>
+<rect x='47' y='70' width='344' height='30' stroke='red' fill='red'/>
+</svg>

@@ -2,18 +2,51 @@
 #include <vector>
 #include "histogram.h"
 #include "SVG.h"
+#include <curl/curl.h>
+#include <sstream>
+#include <string>
 
 using namespace std;
 
-vector<double> input_numbers(size_t count)
+struct Input {
+    vector<double> numbers;
+    size_t bin_count;
+};
+
+vector<double> input_numbers(istream& in, size_t count)
  {
  vector<double> result(count);
     cerr << "Enter numbers: ";
     for (size_t i = 0; i < count; i++)
     {
-        cin >> result[i];
+        in >> result[i];
     }
  return result;
+}
+
+Input
+read_input(istream& in,  bool prompt) {
+    Input data;
+    size_t number_count;
+
+     if (prompt)
+    {
+        cerr << "Enter number count: ";
+        in >> number_count;
+
+        cerr << "Enter numbers: ";
+        data.numbers = input_numbers(in, number_count);
+
+        cerr << "Enter bin count: ";
+        in >> data.bin_count;
+    }
+    else
+    {
+        in >> number_count;
+        data.numbers = input_numbers(in, number_count);
+        in >> data.bin_count;
+    }
+    return data;
 }
 
 void show_histogram_text(vector<size_t> bins)
@@ -58,20 +91,69 @@ void show_histogram_text(vector<size_t> bins)
     return;
 }
 
-int main()
+vector<size_t> make_histogram(Input data)
 {
-    size_t number_count;
-    cerr << "Enter number count: ";
-    cin >> number_count;
-    if (number_count==0)
-        return 1;
-    const auto numbers = input_numbers(number_count);
-    size_t bin_count;
-    cerr << "Enter column count: ";
-    cin >> bin_count;
-    if (bin_count==0)
-        return 1;
-    const auto bins = make_histogram(numbers, bin_count);
-    show_histogram_svg(bins, bin_count);
+    vector<size_t> bins(data.bin_count, 0);
+    double max, min;
+    find_minmax(data.numbers, min, max);
+    for (double number : data.numbers)
+    {
+        size_t bin = (size_t)((number - min) / (max - min) * data.bin_count);
+        if (bin == data.bin_count)
+        {
+            bin--;
+        }
+        bins[bin]++;
+    }
+    return bins;
+}
+
+size_t
+write_data(void* items, size_t item_size, size_t item_count, void* ctx)
+{
+    const size_t data_size = item_size * item_count;
+    const char* new_items = reinterpret_cast<const char*>(items);
+    stringstream* buffer = reinterpret_cast<stringstream*>(ctx);
+    buffer->write(new_items, data_size);
+    return 0;
+}
+
+Input
+download(const string& address) {
+    stringstream buffer;
+    curl_global_init(CURL_GLOBAL_ALL);
+    CURL *curl = curl_easy_init();
+        if(curl)
+        {
+            CURLcode res;
+            curl_easy_setopt(curl, CURLOPT_URL,address);
+            curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, write_data);
+            curl_easy_setopt(curl, CURLOPT_WRITEDATA, &buffer);
+            res = curl_easy_perform(curl);
+            if (res != CURLE_OK)
+            {
+                cout << curl_easy_strerror(res) << endl;
+                curl_version_info_data *prot=curl_version_info(CURLVERSION_NOW);
+                cout <<prot->protocols<<"\n";
+                exit(1);
+            }
+             curl_easy_cleanup(curl);
+        }
+         return read_input(buffer, false);
+}
+
+int main(int argc, char* argv[])
+{
+    Input data;
+    if (argc > 1)
+    {
+        data = download(argv[1]);
+    }
+        else
+    {
+        data = read_input(cin, true);
+    }
+    const auto bins = make_histogram(data);
+    show_histogram_svg(bins, data.bin_count);
     return 0;
 }
