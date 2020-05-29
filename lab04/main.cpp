@@ -80,15 +80,15 @@ void show_histogram_text(vector<size_t> bins)
     return;
 }
 
-vector<size_t> make_histogram(vector<double> numbers, size_t bin_count)
+vector<size_t> make_histogram(Input data)
 {
-    vector<size_t> bins(bin_count);
+    vector<size_t> bins(data.bin_count, 0);
     double max, min;
-    find_minmax(numbers, min, max);
-    for (double number : numbers)
+    find_minmax(data.numbers, min, max);
+    for (double number : data.numbers)
     {
-        size_t bin = (size_t)((number - min) / (max - min) * bin_count);
-        if (bin == bin_count)
+        size_t bin = (size_t)((number - min) / (max - min) * data.bin_count);
+        if (bin == data.bin_count)
         {
             bin--;
         }
@@ -101,7 +101,7 @@ vector<size_t> make_histogram(vector<double> numbers, size_t bin_count)
 int main()
 {
     const auto data = read_input(cin);
-    const auto bins = make_histogram(data.numbers, data.bin_count);
+    const auto bins = make_histogram(data);
     show_histogram_svg(bins, data.bin_count);
     return 0;
 }
