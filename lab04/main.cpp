@@ -148,9 +148,16 @@ int main(int argc, char* argv[])
     printf("Decimal version %u\n",GetVersion());
     printf("Hexadecimal version %x\n",GetVersion());
     DWORD info=GetVersion();
-    DWORD mask = 0x0000ffff;
+    DWORD mask = 0b00000000'00000000'11111111'11111111;
     DWORD version = info & mask;
     printf("version %u\n",version);
+    DWORD mask_minor = 0x000000ff;
+    DWORD mask_major = 0x0000ff00;
+    DWORD platform = info >> 16;
+    DWORD version_minor = info & mask_minor;
+    printf("minor version %u.\n",version_minor);
+    DWORD version_major = info & mask_major;
+    printf("major version %u.\n",version_major);
     Input data;
     if (argc > 1)
     {
