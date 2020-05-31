@@ -157,7 +157,8 @@ int main(int argc, char* argv[])
     DWORD version_minor = info & mask_minor;
     printf("minor version %u.\n",version_minor);
     DWORD version_major = info & mask_major;
-    printf("major version %u.\n",version_major);
+    DWORD version_major16 = version_major >> 8;
+    printf("major version %u.\n",version_major16);
     Input data;
     if (argc > 1)
     {
