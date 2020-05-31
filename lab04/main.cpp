@@ -147,6 +147,10 @@ int main(int argc, char* argv[])
 {
     printf("Decimal version %u\n",GetVersion());
     printf("Hexadecimal version %x\n",GetVersion());
+    DWORD info=GetVersion();
+    DWORD mask = 0x0000ffff;
+    DWORD version = info & mask;
+    printf("version %u\n",version);
     Input data;
     if (argc > 1)
     {
