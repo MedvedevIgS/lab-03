@@ -5,6 +5,7 @@
 #include <curl/curl.h>
 #include <sstream>
 #include <string>
+#include <windows.h>
 
 using namespace std;
 
@@ -144,6 +145,8 @@ download(const string& address) {
 
 int main(int argc, char* argv[])
 {
+    printf("Decimal version %u\n",GetVersion());
+    printf("Hexadecimal version %x\n",GetVersion());
     Input data;
     if (argc > 1)
     {
