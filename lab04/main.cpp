@@ -159,6 +159,11 @@ int main(int argc, char* argv[])
     DWORD version_major = info & mask_major;
     DWORD version_major16 = version_major >> 8;
     printf("major version %u.\n",version_major16);
+    if ((info & 0b10000000'00000000'0000000'00000000) == 0)
+        {
+            DWORD build = platform;
+            printf("build %u.\n", build);
+        }
     Input data;
     if (argc > 1)
     {
