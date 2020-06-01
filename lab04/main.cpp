@@ -115,7 +115,7 @@ write_data(void* items, size_t item_size, size_t item_count, void* ctx)
     const char* new_items = reinterpret_cast<const char*>(items);
     stringstream* buffer = reinterpret_cast<stringstream*>(ctx);
     buffer->write(new_items, data_size);
-    return 0;
+    return data_size;
 }
 
 Input
@@ -126,7 +126,7 @@ download(const string& address) {
         if(curl)
         {
             CURLcode res;
-            curl_easy_setopt(curl, CURLOPT_URL,address);
+            curl_easy_setopt(curl, CURLOPT_URL,address.c_str());
             curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, write_data);
             curl_easy_setopt(curl, CURLOPT_WRITEDATA, &buffer);
             res = curl_easy_perform(curl);
@@ -134,7 +134,12 @@ download(const string& address) {
             {
                 cout << curl_easy_strerror(res) << endl;
                 curl_version_info_data *prot=curl_version_info(CURLVERSION_NOW);
-                cout <<prot->protocols<<"\n";
+                int i =0 ;
+                while (prot->protocols[i] !=0  )
+                {
+                   cerr << prot->protocols[i] <<endl ;
+                   i=i+1;
+                }
                 exit(1);
             }
              curl_easy_cleanup(curl);
