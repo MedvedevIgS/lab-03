@@ -53,7 +53,7 @@ string info_text ()
     if ((info & 0b10000000'00000000'0000000'00000000) == 0)
         {
             DWORD build = platform;
-            buff<<"Windows v"<<version_major<<"."<<version_minor<<"(build"<<build<<")\n";
+            buff<<"Windows v"<<version_minor<<"."<<version_major16<<" (build "<<build<<")   ";
             //printf("build %u.\n", build);
         }
     char system[MAX_COMPUTERNAME_LENGTH + 1];
