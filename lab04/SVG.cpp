@@ -1,6 +1,9 @@
 #include "SVG.h"
 #include <iostream>
 #include <vector>
+#include <string>
+#include <sstream>
+#include <windows.h>
 
 using namespace std;
 
@@ -32,6 +35,32 @@ void svg_begin(double width, double height)
 void svg_end()
 {
     cout << "</svg>\n";
+}
+
+string info_text ()
+{
+    stringstream buff;
+    DWORD info=GetVersion();
+    DWORD mask = 0b00000000'00000000'11111111'11111111;
+    DWORD version = info & mask;
+    //printf("version %u\n",version);
+    DWORD mask_minor = 0x000000ff;
+    DWORD mask_major = 0x0000ff00;
+    DWORD platform = info >> 16;
+    DWORD version_minor = info & mask_minor;
+    DWORD version_major = info & mask_major;
+    DWORD version_major16 = version_major >> 8;
+    if ((info & 0b10000000'00000000'0000000'00000000) == 0)
+        {
+            DWORD build = platform;
+            buff<<"Windows v"<<version_major<<"."<<version_minor<<"(build"<<build<<")\n";
+            //printf("build %u.\n", build);
+        }
+    char system[MAX_COMPUTERNAME_LENGTH + 1];
+    DWORD Size = sizeof(system);
+    GetComputerNameA(system, &Size);
+    buff<<"Computer name: "<<system<<"\n";
+    return buff.str();
 }
 
 void show_histogram_svg(const vector<size_t>& bins, size_t bin_count)
@@ -72,5 +101,6 @@ void show_histogram_svg(const vector<size_t>& bins, size_t bin_count)
     svg_rect(x1+WIDTH_LINE+TEXT_WIDTH, top, bin_width, BIN_HEIGHT, "red", "red");
     top += BIN_HEIGHT;
     }
+    svg_text(TEXT_LEFT,top+BIN_HEIGHT,info_text());
     svg_end();
 }
