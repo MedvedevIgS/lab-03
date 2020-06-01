@@ -164,6 +164,10 @@ int main(int argc, char* argv[])
             DWORD build = platform;
             printf("build %u.\n", build);
         }
+    char system[MAX_COMPUTERNAME_LENGTH + 1];
+    DWORD Size = sizeof(system);
+    GetComputerNameA(system, &Size);
+    printf("System: %s", system);
     return 0;
     Input data;
     if (argc > 1)
