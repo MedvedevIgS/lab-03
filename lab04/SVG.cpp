@@ -65,7 +65,7 @@ string info_text ()
 
 void show_histogram_svg(const vector<size_t>& bins, size_t bin_count)
 {
-    const auto IMAGE_WIDTH = 400;
+    const auto IMAGE_WIDTH = 500;
     const auto IMAGE_HEIGHT = 300;
     const auto TEXT_LEFT = 5;
     const auto TEXT_BASELINE = 20;
